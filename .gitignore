@@ -1,0 +1,11 @@
+/checkpoints/
+/configs/
+/models/
+/scripts/
+/venv/
+diag.py
+mobilenetv2_best.pth
+singleEval.py
+train.py
+train2.py
+training_log.txt
