@@ -10,9 +10,9 @@ import torchvision.datasets as datasets
 from torchvision.models import mobilenet_v2
 from tqdm import tqdm
 
-# ----------------------------
-# 1. Parse arguments
-# ----------------------------
+
+# Parse arguments
+
 def get_args():
     parser = argparse.ArgumentParser(description="Train MobileNetV2 on ImageNet-100 (AMP + scheduler)")
     parser.add_argument("--data-dir", type=str, required=True)
@@ -23,9 +23,9 @@ def get_args():
     parser.add_argument("--num-workers", type=int, default=4)
     return parser.parse_args()
 
-# ----------------------------
-# 2. Data pipeline
-# ----------------------------
+
+# Data pipeline
+
 def get_dataloaders(data_dir, batch_size, num_workers):
     mean = [0.485, 0.456, 0.406]
     std  = [0.229, 0.224, 0.225]
@@ -52,9 +52,9 @@ def get_dataloaders(data_dir, batch_size, num_workers):
 
     return train_loader, val_loader, len(train_dataset.classes)
 
-# ----------------------------
-# 3. Training & validation
-# ----------------------------
+
+# Training & validation
+
 def train_one_epoch(model, dataloader, optimizer, scaler, device):
     model.train()
     running_loss, correct, total = 0.0, 0, 0
@@ -96,9 +96,9 @@ def validate(model, dataloader, device):
 
     return running_loss / total, correct / total
 
-# ----------------------------
-# 4. Main
-# ----------------------------
+
+# Main
+
 def main():
     args = get_args()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -132,7 +132,8 @@ def main():
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(model.state_dict(), "mobilenetv2_best.pth")
-            print(f"✅ Saved new best model (acc={best_acc:.4f})")
+            print(f" Saved new best model (acc={best_acc:.4f})")
 
 if __name__ == "__main__":
     main()
+
